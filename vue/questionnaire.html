@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    
+
+</head>
+<body id="questionnairePage">
+    <header id="questionnaireTitle">QUESTIONNAIRE</header>
+
+    <main>
+        <form action="page_suivante.html" method="get">
+            <!-- Âge -->
+            <label for="age">Votre âge :</label>
+            <input type="number" id="age" name="age" min="1" max="120" required><br><br>
+
+            <!-- Sexe -->
+            <label for="sexe">Votre sexe :</label><br>
+            <select id="sexe" name="sexe" required>
+                <option value="">--Sélectionnez--</option>
+                <option value="1">Femme</option>
+                <option value="2">Homme</option>
+            </select><br><br>
+
+            <!-- Latéralité -->
+            <label for="lateralite">Êtes-vous gaucher, droitier ou ambidextre ?</label><br>
+            <select id="lateralite" name="lateralite" required>
+                <option value="">--Sélectionnez--</option>
+                <option value="1">Gaucher</option>
+                <option value="0">Droitier</option>
+                <option value="2">Ambidextre</option>
+            </select><br><br>
+
+            <!-- Daltonisme -->
+            <label for="daltonien">Êtes-vous daltonien ?</label><br>
+            <select id="daltonien" name="daltonien" required>
+                <option value="">--Sélectionnez--</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select><br><br>
+
+            <!-- Souris -->
+            <label for="souris">Avez-vous une souris (et non un pad) ?</label><br>
+            <select id="souris" name="souris" required>
+                <option value="">--Sélectionnez--</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select><br>
+        </form>
+        <!-- Bouton -->
+        <a href="regles.html" id="questionnaire_start_button">Valider</a>
+    </main>
+    <script src="questionnaire.js"></script>
+</body>
+</html>
+
+            
