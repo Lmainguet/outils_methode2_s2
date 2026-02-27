@@ -4,26 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Structure de l'Expérience Stroop - Individuel</title>
-    <script src="ParticipantClass.js"></script>
-    <script src="EssaieClass.js"></script>
-    <script src="DateClass.js"></script>
-    <script src="savedata.js"></script>
-    <script src="algo.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="../model/ParticipantClass.js"></script>
+    <script src="../model/EssaieClass.js"></script>
+    <script src="../model/DateClass.js"></script>
+    <script src="../model/savedata.js"></script>
+    <script src="../model/algo.js"></script>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body id="head">
     <div>
-        <div class="arc_container">
-            <div id="red" class="color">ROUGE</div>
-            <div id="blue" class="color">BLEU</div>
-            <div id="yellow" class="color">JAUNE</div>
-            <div id="green" class="color">VERT</div>  
-        </div>
-
-        <div id="stroop_stimulus">
-            MOT DE TEST
-        </div>
-        <button id="index_start_button">DÉMARRER</button>
+        <label hidden="true" for="exemple">Nombre de points observé : </label>
+        <input id="exemple" value="0"/>
     </div>
     
 </body>

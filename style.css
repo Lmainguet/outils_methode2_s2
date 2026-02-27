@@ -1,0 +1,125 @@
+/* style.css */
+
+body {
+    background-color: black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+main {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+h1 {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 10px;
+}
+
+#head{
+    overflow: hidden;
+}
+
+#regles_start_button, #declaration_start_button, #accueil_start_button, #finish_start_button, #questionnaire_start_button {
+    border: 2px solid white;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding : 20px;
+}
+
+#index_start_button{
+    width: 150px;
+    height: 50px;
+    border: 2px solid white;
+    color: white;
+    font-size: 20px;
+    font-weight: bold; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+.arc_container {
+    position: absolute;
+    top: 60%; 
+    left: 50%;
+    transform: translate(-50%, 0); 
+    width: 700px; 
+    height: 700px;
+}
+#zoneTest{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#moncercle{
+  background:#bfd70e;
+  border-radius:50%;
+  width:5px;
+  height:160px;
+  /*visibility:hidden;*/
+  border:2px solid #679403; 
+}
+
+#stroop_stimulus {
+    position: absolute; 
+    bottom: 30vh; 
+    font-size: 72px;
+    font-weight: 900;
+    text-align: center;
+    visibility:hidden;
+    width: 100%;
+    color: white;
+}
+
+#questionnairePage{
+    scroll-behavior: auto;
+}
+form{
+    padding-bottom: 20px;
+}
+
+select, input {
+    font-size: 20px;
+	appearance: base-select;
+	border: 2px solid #8ec89a;
+	border-radius: 10px;
+	background-color: white;
+	color: #8ec89a;
+    margin : 10px;
+}
