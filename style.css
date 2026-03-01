@@ -1,11 +1,10 @@
 /* style.css */
 
 body {
-    background-color: black;
+    background-color: rgb(206, 206, 206);
     text-align: center;
     align-items: center;
     justify-content: center;
-    color: white;
     font-family: Arial, sans-serif;
     margin: auto;
 }
@@ -89,12 +88,17 @@ h1 {
 }
 
 .moncercle{
-    background:#bfd70e;
     border-radius:50%;
     width: 10px;
     height: 10px;
-    /*visibility:hidden;*/
-    border:2px solid #679403; 
+}
+
+#highCercle{
+    background:#FF0018;
+}
+
+#lowCercle{
+    background:#FFBDC3;
 }
 
 #stroop_stimulus {

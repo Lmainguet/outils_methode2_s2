@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     participant.lateralite = data.lateralite;
     participant.daltonisme = data.daltonien;
     participant.peripherique = data.souris;
-    console.log(participant);
     
     let associationsNomCouleur = [
         { nom: 1, couleur: "jaune", x: 10, y:10},
@@ -34,24 +33,40 @@ document.addEventListener('DOMContentLoaded', () => {
         { nom: 19, couleur: "jaune", x: 94, y : 4},
         { nom: 20, couleur: "bleu", x: 65, y : 18}
     ];
+    associationsNomCouleur = shuffle(associationsNomCouleur);
+    
 
-    let nombreDePoints = [];
-    for (let i = 1; i <= 10; i++) {
-        nombreDePoints.push([6, i]);
-    }
+    // creer la liste des points et des couleurs pour les 6 sessions de 20 essaies
+    let nombrePointsCouleur = [];
+    for (let i = 1; i <= 20; i++) {
+        for (let j = 0; j < 3; j++) {
+            nombrePointsCouleur.push(["highCercle", i]);
+        }
+        for (let j = 0; j < 3; j++) {
+            nombrePointsCouleur.push(["lowCercle", i]);
+        }
+    };
+    nombrePointsCouleur = shuffle(nombrePointsCouleur);
 
-    for (let i = 0; i < associationsNomCouleur.length; i++) {
+    /* fonction principal 
+    * ajoute chaque points dans le container zoneTest 
+    */
+    session = nombrePointsCouleur[0];
+    nombrePointsCouleur.shift();
+    for (let i = 0; i < session[1]; i++) {
         const point = associationsNomCouleur[i];
         let adaptedPosition = adaptPositionPointToContainer(
             point.x,
             point.y,
             zoneTest
-        );   
+        );
+
         zoneTest.appendChild(
             createPointElement(adaptedPosition.realX, adaptedPosition.realY)
         ); 
     }
 
+    /*determine l'emplacement de chaque point en fonction du x/100 et y/100 de chaque point de associationsNomCouleur */
     function adaptPositionPointToContainer(x, y, container) {
         const width = container.offsetWidth;
         const height = container.offsetHeight;
@@ -60,17 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return { realX, realY };
     }
 
+    /* creer le point avec ses coordonnées et caracteristiques */
     function createPointElement(x, y) {
         const pointElement = document.createElement("div");
         pointElement.className = "moncercle";
         pointElement.style.position = "absolute";
         pointElement.style.left = `${x}px`;
         pointElement.style.top = `${y}px`;
+        pointElement.id = "highCercle";
         return pointElement;
     }
 
 
-    window.addEventListener("resize", repositionPoints);
 
     //click sur un des boutons reponse couleur
     /*elements.forEach(button => {
