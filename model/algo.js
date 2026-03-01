@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     associationsNomCouleur = shuffle(associationsNomCouleur);
     
-
     // creer la liste des points et des couleurs pour les 6 sessions de 20 essaies
     let nombrePointsCouleur = [];
     for (let i = 1; i <= 20; i++) {
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         zoneTest.appendChild(
-            createPointElement(adaptedPosition.realX, adaptedPosition.realY)
+            createPointElement(adaptedPosition.realX, adaptedPosition.realY, session[0])
         ); 
     }
 
@@ -76,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* creer le point avec ses coordonnées et caracteristiques */
-    function createPointElement(x, y) {
+    function createPointElement(x, y, color) {
         const pointElement = document.createElement("div");
         pointElement.className = "moncercle";
         pointElement.style.position = "absolute";
         pointElement.style.left = `${x}px`;
         pointElement.style.top = `${y}px`;
-        pointElement.id = "highCercle";
+        pointElement.id = color;
         return pointElement;
     }
 
