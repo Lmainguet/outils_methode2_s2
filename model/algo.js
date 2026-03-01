@@ -85,75 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return pointElement;
     }
 
-
-
-    //click sur un des boutons reponse couleur
-    /*elements.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const clickedId = event.target.id;
-            essai.reponseValide = true;
-            essai.reponse = clickedId;
-            essai.couleur = stroop_stimulus.style.color;
-            essai.mot = stroop_stimulus.textContent; 
-            essai.tempsInitiation = essai.coordonnees[0].t;
-            essai.tempsMouvement = new Date().getTime() - heure_stroop_apparait;
-            participant.essai.push(essai.getDonnees());
-            essai.coordonnees = [];
-            if (clickedId != essai.couleur) {
-                afficherErreur();
-            }else {
-                setTimeout(() => {
-                    index_start_button.style.visibility = 'visible';
-                }, 500);
-            }
-            stroop_stimulus.style.visibility = 'hidden';
-            startTime = 0;
-            
-        });
-    });
-
-    index_start_button.addEventListener('click',(event) => {
-        essai.startX = event.clientX;
-        essai.startY = event.clientY;
-        heure_clic_demmaré = new Date().getTime();
-        shuffle(associations);
-        index_start_button.style.visibility = 'hidden';
-        // Génère la prochaine couleur
-        let nextElemenCouleur = associations.find(e => e.count > 0);
-        
-        if(nextElemenCouleur){
-            essai.condition = nextElemenCouleur.info;
-            stroop_stimulus.textContent = nextElemenCouleur.nom;
-            //gestion des couleurs pour l'affichage du prochain mot
-            switch (nextElemenCouleur.couleur) {
-                case "jaune":
-                    stroop_stimulus.style.color ="yellow";
-                    break;
-
-                case "rouge":
-                    stroop_stimulus.style.color ="red";
-                    break;
-
-                case "bleu":
-                    stroop_stimulus.style.color ="blue";
-                    break;
-
-                case "vert":
-                    stroop_stimulus.style.color ="green";
-                    break;
-            }       
-            nextElemenCouleur.count--;
-            setTimeout(() => {
-                startTime = 1;
-                heure_stroop_apparait = new Date().getTime();
-                stroop_stimulus.style.visibility = 'visible';
-            }, 3000);
-        } else {
-            savedata(participant); 
-            document.location.href = "finish.html";
-        }
-    });
-
     /* 
     *  shuffle() : melange les dictionnaires de la list pour changer l'ordre
     *  array : liste de dico
@@ -169,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 
     *  afficherErreur() : affiche une grande croix rouge pendant 3 secondes si le participant se trompe
     */
-    function afficherErreur() {
+    /*function afficherErreur() {
         const x = document.createElement("div");
         x.textContent = "X";
         x.style.fontSize = "200px";
@@ -183,5 +114,5 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.forEach(el => el.style.visibility = "visible");   
             index_start_button.style.visibility = 'visible';
         }, 3000);
-    }
+    }*/
 });
