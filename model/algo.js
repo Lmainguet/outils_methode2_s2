@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let associationsNomCouleur = [
         { nom: 1, couleur: "jaune", x: 10, y:10},
         { nom: 2, couleur: "bleu", x: 15 , y:46},
-        { nom: 3, couleur: "jaune", x: 86, y : 26},
-        { nom: 4, couleur: "jaune", x: 4, y : 75},
-        { nom: 5, couleur: "bleu", x: 1, y : 90},
+        { nom: 3, couleur: "jaune", x: 86, y : 84},
+        { nom: 4, couleur: "jaune", x: 97, y : 75},
+        { nom: 5, couleur: "bleu", x: 34, y : 41},
         { nom: 6, couleur: "bleu", x: 68, y : 70},
         { nom: 7, couleur: "jaune", x: 46, y : 50},
         { nom: 8, couleur: "bleu", x: 25, y : 25},
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nom: 13, couleur: "jaune", x: 25, y : 86},
         { nom: 14, couleur: "jaune", x: 74, y : 16},
         { nom: 15, couleur: "bleu", x: 12, y : 90},
-        { nom: 16, couleur: "bleu", x: 6, y : 70},
+        { nom: 16, couleur: "bleu", x: 3, y : 52},
         { nom: 17, couleur: "jaune", x: 84, y : 50},
         { nom: 18, couleur: "bleu", x: 65, y : 25},
         { nom: 19, couleur: "jaune", x: 94, y : 4},
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= 10; i++) {
         nombreDePoints.push([6, i]);
     }
-
 
     for (let i = 0; i < associationsNomCouleur.length; i++) {
         const point = associationsNomCouleur[i];
@@ -70,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return pointElement;
     }
 
+
+    window.addEventListener("resize", repositionPoints);
 
     //click sur un des boutons reponse couleur
     /*elements.forEach(button => {
