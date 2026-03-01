@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { nom: 20, couleur: "bleu", x: 65, y : 18}
     ];
     associationsNomCouleur = shuffle(associationsNomCouleur);
-    
+    const pointElements = [];
+
     // creer la liste des points et des couleurs pour les 6 sessions de 20 essaies
     let nombrePointsCouleur = [];
     for (let i = 1; i <= 20; i++) {
@@ -47,43 +48,50 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     nombrePointsCouleur = shuffle(nombrePointsCouleur);
 
+    // selection d'une session d'essaie avec un nombre de points et une couleur
+    session = nombrePointsCouleur[0];
+    console.log(session);
+    nombrePointsCouleur.shift();
+
     /* fonction principal 
     * ajoute chaque points dans le container zoneTest 
     */
-    session = nombrePointsCouleur[0];
-    nombrePointsCouleur.shift();
     for (let i = 0; i < session[1]; i++) {
         const point = associationsNomCouleur[i];
-        let adaptedPosition = adaptPositionPointToContainer(
-            point.x,
-            point.y,
-            zoneTest
-        );
+        const el = createPointElement(session[0]);
+        el.dataset.x = point.x;
+        el.dataset.y = point.y;
 
-        zoneTest.appendChild(
-            createPointElement(adaptedPosition.realX, adaptedPosition.realY, session[0])
-        ); 
+        zoneTest.appendChild(el);
+        pointElements.push(el);
     }
 
     /*determine l'emplacement de chaque point en fonction du x/100 et y/100 de chaque point de associationsNomCouleur */
-    function adaptPositionPointToContainer(x, y, container) {
-        const width = container.offsetWidth;
-        const height = container.offsetHeight;
-        const realX = (x / 100) * width;
-        const realY = (y / 100) * height;
-        return { realX, realY };
+    function adaptPositionPointToContainer(x, y) {
+        const width = zoneTest.offsetWidth;
+        const height = zoneTest.offsetHeight;
+        pointElements.forEach(el => {
+            const xPercent = parseFloat(el.dataset.x);
+            const yPercent = parseFloat(el.dataset.y);
+
+            el.style.left = (xPercent / 100) * width + "px";
+            el.style.top = (yPercent / 100) * height + "px";
+        });
     }
 
-    /* creer le point avec ses coordonnées et caracteristiques */
-    function createPointElement(x, y, color) {
+    /* creer le point avec ses caracteristiques */
+    function createPointElement(color) {
         const pointElement = document.createElement("div");
         pointElement.className = "moncercle";
         pointElement.style.position = "absolute";
-        pointElement.style.left = `${x}px`;
-        pointElement.style.top = `${y}px`;
         pointElement.id = color;
         return pointElement;
     }
+    
+    requestAnimationFrame(() => {
+        adaptPositionPointToContainer();
+    });
+    window.addEventListener("resize", adaptPositionPointToContainer);
 
     /* 
     *  shuffle() : melange les dictionnaires de la list pour changer l'ordre
