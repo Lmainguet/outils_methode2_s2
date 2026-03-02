@@ -6,34 +6,22 @@
  * */
 class EssaieClass {
     constructor() {
-        this.mot = "";
-        this.couleur = "";
-        this.condition = "";
-        this.reponse = "";
-        this.reponseValide = true;
-        this.tempsInitiation = null;
-        this.tempsMouvement = null ;
-        this.startX = null;
-        this.startY = null;
-        this.coordonnees = [];
+        this.index = "";
+        this.data = [];
     }
 
-    addPosition(pos) {
-        this.coordonnees.push(pos);
+    addData(pos) {
+        this.data.push(pos);
     }
 
     getDonnees() {
         return {
-            mot : this.mot,
-            couleur: this.couleur,
-            condition: this.condition,
-            reponse: this.reponse,
-            reponseValide: this.reponseValide,
-            tempsInitiation: this.tempsInitiation,
-            tempsMouvement: this.tempsMouvement,
-            startX: this.startX,
-            startY: this.startY,
-            coordonnees: this.coordonnees
+            index: this.index,
+            data: this.data
         };
+    }
+
+    suppDOnnes() {
+        this.data = [];
     }
 };

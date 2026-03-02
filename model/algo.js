@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessions = []; // Contiendra 6 tableaux de 20 essais
     let currentSessionIndex = 0;
     let currentEssaiIndex = 0;
+    let essaie = new EssaieClass();
+    let ExperiencesData = {
+        questionnaire: data,
+        essais: []
+    };
 
     let associationsNomCouleur = [
         { nom: 1, x: 10, y:10}, { nom: 2, x: 15 , y:46}, { nom: 3, x: 86, y : 84},
@@ -24,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { nom: 16, x: 3, y : 52}, { nom: 17, x: 84, y : 50}, { nom: 18, x: 65, y : 25},
         { nom: 19, x: 94, y : 4}, { nom: 20, x: 65, y : 18}
     ];
+    
 
     function initialiserExperience() {
         let fullList = [];
@@ -47,14 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
         barreSaisie.classList.add("hidden");
         zoneTest.innerHTML = "";
         inputReponse.value = 0;
-
+        
         // Vérifier si la session actuelle est finie
         if (currentEssaiIndex >= sessions[currentSessionIndex].length) {
+            
             currentSessionIndex++;
             currentEssaiIndex = 0;
+            essaie.index = currentSessionIndex;
             
             // Vérifier si c'est la fin totale
             if (currentSessionIndex >= sessions.length) {
+                savedata(ExperiencesData);
                 window.location.href = "finish.html";
                 return;
             } else {
@@ -62,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
         }
-
         const currentEssai = sessions[currentSessionIndex][currentEssaiIndex];
         const typeCercle = currentEssai[0];
         const nbPoints = currentEssai[1];
@@ -78,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.left = (pointData.x / 100) * zoneTest.offsetWidth + "px";
             el.style.top = (pointData.y / 100) * zoneTest.offsetHeight + "px";
             zoneTest.appendChild(el);
+            essaie.addData({x: pointData.x, y: pointData.y, couleur: currentEssai[0], nbPoints: nbPoints});
         }
 
         // Flash de 2 secondes
@@ -91,6 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function ouvrirPause() {
         sessionTitle.textContent = `Session ${currentSessionIndex} terminée sur 6`;
         pauseScreen.classList.remove("hidden");
+        ExperiencesData.essais.push(essaie.getDonnees());
+        essaie.suppDOnnes();
+        console.log(ExperiencesData);
     }
 
     function shuffle(array) {
