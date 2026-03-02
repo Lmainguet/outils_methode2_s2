@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head >
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structure de l'Expérience Stroop - Individuel</title>
+    <title>Test de Perception Visuelle</title>
     <script src="../model/ParticipantClass.js"></script>
     <script src="../model/EssaieClass.js"></script>
     <script src="../model/DateClass.js"></script>
     <script src="../model/savedata.js"></script>
-    <script src="../model/algo.js"></script>
+    <script src="../model/algo.js" defer></script>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body id="head">
     <div class="inputNumber">
-        <label for="exemple">Nombre de points observé : </label>
-        <input id="exemple" value="0"/>
+        <label for="reponse_sujet">Nombre de points observé : </label>
+        <input type="number" id="reponse_sujet" value="0"/>
+        <button id="next_essai_button">VALIDER & SUIVANT</button>
     </div>
     
+    <div class="zoneTest"></div>
 </body>
 </html>

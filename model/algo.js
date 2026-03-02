@@ -1,103 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const zoneTest = document.createElement("div");
-    zoneTest.className = "zoneTest";
-    document.body.appendChild(zoneTest);
+    const zoneTest = document.querySelector(".zoneTest");
+    const nextBtn = document.getElementById("next_essai_button");
+    const inputReponse = document.getElementById("reponse_sujet");
+    
+    // Récupération des données participant
     const data = JSON.parse(localStorage.getItem("questionnaireReponses"));
+    if (!data) { window.location.href = "questionnaire.html"; return; }
+
     let participant = new ParticipantClass();
-    let essai = new EssaieClass();
     participant.age = data.age;  
     participant.genre = data.sexe;
     participant.Ordi = data.Ordi;
     participant.Vue = data.Vue;
     participant.filtre = data.filtre;
     participant.dyscalculie = data.dyscalculie;
-    
+
     let associationsNomCouleur = [
-        { nom: 1, couleur: "jaune", x: 10, y:10},
-        { nom: 2, couleur: "bleu", x: 15 , y:46},
-        { nom: 3, couleur: "jaune", x: 86, y : 84},
-        { nom: 4, couleur: "jaune", x: 97, y : 75},
-        { nom: 5, couleur: "bleu", x: 34, y : 41},
-        { nom: 6, couleur: "bleu", x: 68, y : 70},
-        { nom: 7, couleur: "jaune", x: 46, y : 50},
-        { nom: 8, couleur: "bleu", x: 25, y : 25},
-        { nom: 9, couleur: "jaune", x: 5, y : 5},
-        { nom: 10, couleur: "bleu", x: 25, y : 13},
-        { nom: 11, couleur: "jaune", x: 3, y:10},
-        { nom: 12, couleur: "bleu", x: 51 , y:65},
-        { nom: 13, couleur: "jaune", x: 25, y : 86},
-        { nom: 14, couleur: "jaune", x: 74, y : 16},
-        { nom: 15, couleur: "bleu", x: 12, y : 90},
-        { nom: 16, couleur: "bleu", x: 3, y : 52},
-        { nom: 17, couleur: "jaune", x: 84, y : 50},
-        { nom: 18, couleur: "bleu", x: 65, y : 25},
-        { nom: 19, couleur: "jaune", x: 94, y : 4},
-        { nom: 20, couleur: "bleu", x: 65, y : 18}
+        { nom: 1, x: 10, y:10}, { nom: 2, x: 15 , y:46}, { nom: 3, x: 86, y : 84},
+        { nom: 4, x: 97, y : 75}, { nom: 5, x: 34, y : 41}, { nom: 6, x: 68, y : 70},
+        { nom: 7, x: 46, y : 50}, { nom: 8, x: 25, y : 25}, { nom: 9, x: 5, y : 5},
+        { nom: 10, x: 25, y : 13}, { nom: 11, x: 3, y:10}, { nom: 12, x: 51 , y:65},
+        { nom: 13, x: 25, y : 86}, { nom: 14, x: 74, y : 16}, { nom: 15, x: 12, y : 90},
+        { nom: 16, x: 3, y : 52}, { nom: 17, x: 84, y : 50}, { nom: 18, x: 65, y : 25},
+        { nom: 19, x: 94, y : 4}, { nom: 20, x: 65, y : 18}
     ];
-    associationsNomCouleur = shuffle(associationsNomCouleur);
-    const pointElements = [];
 
-    // creer la liste des points et des couleurs pour les 6 sessions de 20 essaies
     let nombrePointsCouleur = [];
-    for (let i = 1; i <= 20; i++) {
-        for (let j = 0; j < 3; j++) {
-            nombrePointsCouleur.push(["highCercle", i]);
-        }
-        for (let j = 0; j < 3; j++) {
-            nombrePointsCouleur.push(["lowCercle", i]);
-        }
-    };
-    nombrePointsCouleur = shuffle(nombrePointsCouleur);
-
-    // selection d'une session d'essaie avec un nombre de points et une couleur
-    session = nombrePointsCouleur[0];
-    console.log(session);
-    nombrePointsCouleur.shift();
-
-    /* fonction principal 
-    * ajoute chaque points dans le container zoneTest 
-    */
-    for (let i = 0; i < session[1]; i++) {
-        const point = associationsNomCouleur[i];
-        const el = createPointElement(session[0]);
-        el.dataset.x = point.x;
-        el.dataset.y = point.y;
-
-        zoneTest.appendChild(el);
-        pointElements.push(el);
-    }
-
-    /*determine l'emplacement de chaque point en fonction du x/100 et y/100 de chaque point de associationsNomCouleur */
-    function adaptPositionPointToContainer(x, y) {
-        const width = zoneTest.offsetWidth;
-        const height = zoneTest.offsetHeight;
-        pointElements.forEach(el => {
-            const xPercent = parseFloat(el.dataset.x);
-            const yPercent = parseFloat(el.dataset.y);
-
-            el.style.left = (xPercent / 100) * width + "px";
-            el.style.top = (yPercent / 100) * height + "px";
-        });
-    }
-
-    /* creer le point avec ses caracteristiques */
-    function createPointElement(color) {
-        const pointElement = document.createElement("div");
-        pointElement.className = "moncercle";
-        pointElement.style.position = "absolute";
-        pointElement.id = color;
-        return pointElement;
-    }
     
-    requestAnimationFrame(() => {
-        adaptPositionPointToContainer();
-    });
-    window.addEventListener("resize", adaptPositionPointToContainer);
+    function initialiserSession() {
+        for (let i = 1; i <= 20; i++) {
+            for (let j = 0; j < 3; j++) {
+                nombrePointsCouleur.push(["highCercle", i]);
+                nombrePointsCouleur.push(["lowCercle", i]);
+            }
+        }
+        nombrePointsCouleur = shuffle(nombrePointsCouleur);
+    }
 
-    /* 
-    *  shuffle() : melange les dictionnaires de la list pour changer l'ordre
-    *  array : liste de dico
-    */
+    function lancerEssai() {
+        // 1. On vide la zone précédente
+        zoneTest.innerHTML = "";
+        inputReponse.value = 0;
+
+        // 2. Vérifier s'il reste des essais
+        if (nombrePointsCouleur.length === 0) {
+            window.location.href = "finish.html";
+            return;
+        }
+
+        // 3. Prendre le premier de la liste et l'enlever (.shift)
+        const session = nombrePointsCouleur.shift();
+        const nbPoints = session[1];
+        const typeCercle = session[0];
+
+        // 4. Mélanger les positions pour cet essai
+        let positions = shuffle([...associationsNomCouleur]);
+
+        // 5. Créer les points
+        for (let i = 0; i < nbPoints; i++) {
+            const pointData = positions[i];
+            const el = document.createElement("div");
+            el.className = "moncercle";
+            el.id = typeCercle;
+            el.style.position = "absolute";
+            
+            // Calcul position
+            const width = zoneTest.offsetWidth;
+            const height = zoneTest.offsetHeight;
+            el.style.left = (pointData.x / 100) * width + "px";
+            el.style.top = (pointData.y / 100) * height + "px";
+
+            zoneTest.appendChild(el);
+        }
+    }
+
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -106,22 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-    /* 
-    *  afficherErreur() : affiche une grande croix rouge pendant 3 secondes si le participant se trompe
-    */
-    /*function afficherErreur() {
-        const x = document.createElement("div");
-        x.textContent = "X";
-        x.style.fontSize = "200px";
-        x.style.fontWeight="bold";
-        x.style.color="red";
-        essai.reponseValide = false;
-        document.body.appendChild(x);
-        elements.forEach(el => el.style.visibility = "hidden");  
-        setTimeout(() => {
-            x.remove();
-            elements.forEach(el => el.style.visibility = "visible");   
-            index_start_button.style.visibility = 'visible';
-        }, 3000);
-    }*/
+    // Écouteur du bouton
+    nextBtn.addEventListener("click", () => {
+        // Ici tu pourrais appeler savedata.js avant de passer au suivant
+        lancerEssai();
+    });
+
+    // Lancement initial
+    initialiserSession();
+    lancerEssai();
 });
