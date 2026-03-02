@@ -1,22 +1,22 @@
-/**
- * buttonClick : bouton correspondant à la reponse du participant
- * couleurMot : couleur du text du mot de test
- * textMot : text du mot de test 
- * position : list des positions de chaque mouvement de la souris et l'heure de prise du mouvement DateClass()
- * */
 class EssaieClass {
-    constructor() {
+    constructor(couleur, nbReel, nbParticipant) {  
         this.index = "";
+        this.couleur = couleur;
+        this.nbReel = nbReel;
+        this.nbParticipant = nbParticipant;
         this.data = [];
     }
 
-    addData(pos) {
-        this.data.push(pos);
+    addData(donnees) {
+        this.data.push(donnees);
     }
 
     getDonnees() {
         return {
             index: this.index,
+            couleur: this.couleur,
+            nbReel: this.nbReel,
+            nbParticipant: this.nbParticipant,
             data: this.data
         };
     }
@@ -24,4 +24,4 @@ class EssaieClass {
     suppDOnnes() {
         this.data = [];
     }
-};
+}

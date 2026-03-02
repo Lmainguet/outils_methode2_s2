@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSessionIndex = 0;
     let currentEssaiIndex = 0;
     let essaie = new EssaieClass();
+    let session = new SessionClass();
     let ExperiencesData = {
         questionnaire: data,
-        essais: []
+        experience: session
     };
 
     let associationsNomCouleur = [
@@ -56,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Vérifier si la session actuelle est finie
         if (currentEssaiIndex >= sessions[currentSessionIndex].length) {
-            
+            console.log(currentEssaiIndex, sessions[currentSessionIndex].length);
             currentSessionIndex++;
             currentEssaiIndex = 0;
-            essaie.index = currentSessionIndex;
+            session.index = currentSessionIndex;
             
             // Vérifier si c'est la fin totale
             if (currentSessionIndex >= sessions.length) {
@@ -74,7 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentEssai = sessions[currentSessionIndex][currentEssaiIndex];
         const typeCercle = currentEssai[0];
         const nbPoints = currentEssai[1];
-        let positions = shuffle([...associationsNomCouleur]);
+        essaie.couleur = typeCercle;
+        essaie.nbPoints = nbPoints;
+        let positions = shuffle([associationsNomCouleur]);
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
@@ -86,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.left = (pointData.x / 100) * zoneTest.offsetWidth + "px";
             el.style.top = (pointData.y / 100) * zoneTest.offsetHeight + "px";
             zoneTest.appendChild(el);
-            essaie.addData({x: pointData.x, y: pointData.y, couleur: currentEssai[0], nbPoints: nbPoints});
+            essaie.addData({x: pointData.x, y: pointData.y});
         }
 
         // Flash de 2 secondes
@@ -115,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bouton Valider (passe à l'essai suivant dans la session)
     nextBtn.addEventListener("click", () => {
+        essaie.reponse = inputReponse.value;
         currentEssaiIndex++;
         lancerEssai();
     });
