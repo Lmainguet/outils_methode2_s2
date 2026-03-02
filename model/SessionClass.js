@@ -7,7 +7,7 @@
 class SessionClass {
     constructor() {
         this.index = "";
-        this.essaie = EssaieClass;
+        this.data = [];
     }
 
     addData(pos) {

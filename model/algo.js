@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessions = []; // Contiendra 6 tableaux de 20 essais
     let currentSessionIndex = 0;
     let currentEssaiIndex = 0;
-    let essaie = new EssaieClass();
     let session = new SessionClass();
+    let essaie = new EssaieClass();
+    
     let ExperiencesData = {
         questionnaire: data,
         experience: session
@@ -57,11 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Vérifier si la session actuelle est finie
         if (currentEssaiIndex >= sessions[currentSessionIndex].length) {
-            console.log(currentEssaiIndex, sessions[currentSessionIndex].length);
             currentSessionIndex++;
-            currentEssaiIndex = 0;
-            session.index = currentSessionIndex;
-            
+            currentEssaiIndex = 0;            
             // Vérifier si c'est la fin totale
             if (currentSessionIndex >= sessions.length) {
                 savedata(ExperiencesData);
@@ -75,9 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentEssai = sessions[currentSessionIndex][currentEssaiIndex];
         const typeCercle = currentEssai[0];
         const nbPoints = currentEssai[1];
+        essaie.index = currentEssaiIndex;
         essaie.couleur = typeCercle;
         essaie.nbPoints = nbPoints;
-        let positions = shuffle([associationsNomCouleur]);
+        let positions = shuffle(associationsNomCouleur);
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
@@ -103,9 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function ouvrirPause() {
         sessionTitle.textContent = `Session ${currentSessionIndex} terminée sur 6`;
         pauseScreen.classList.remove("hidden");
-        ExperiencesData.essais.push(essaie.getDonnees());
+        session.addData(essaie.getDonnees());
         essaie.suppDOnnes();
-        console.log(ExperiencesData);
     }
 
     function shuffle(array) {
@@ -119,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Valider (passe à l'essai suivant dans la session)
     nextBtn.addEventListener("click", () => {
         essaie.reponse = inputReponse.value;
+        
+        session.addData(essaie.getDonnees());
         currentEssaiIndex++;
         lancerEssai();
     });
@@ -126,6 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Pause (lance la session suivante)
     startSessionBtn.addEventListener("click", () => {
         pauseScreen.classList.add("hidden");
+        ExperiencesData.experience.push(session.getDonnees());
+        session = new SessionClass(); // Réinitialiser la session
+        console.log(ExperiencesData);
         lancerEssai();
     });
 
