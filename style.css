@@ -1,10 +1,7 @@
 /* style.css */
-
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(206, 206, 206);
     text-align: center;
-    align-items: center;
-    justify-content: center;
     font-family: Arial, sans-serif;
     margin: auto;
 }
@@ -14,76 +11,50 @@ header {
     padding: 20px 0;
     font-size: 40px;
     font-weight: bold;
-    letter-spacing: 2px;
 }
 
 main {
     padding: 20px;
     font-size: 30px;
-    text-align: center;
-    margin-top: 20px;
 }
 
-h1 {
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    height: 10px;
-}
-
-#head{
-    overflow: hidden;
-}
-
-#regles_start_button, #declaration_start_button, #accueil_start_button, #finish_start_button, #questionnaire_start_button {
+#regles_start_button, #next_essai_button, #declaration_start_button, #questionnaire_start_button {
     border: 2px solid white;
-    align-items: center;
-    justify-content: center;
     color: white;
     background-color: black;
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
-    user-select: none;
     cursor: pointer;
-    text-decoration: none;
-    padding : 20px;
+    padding: 15px 30px;
+    margin-top: 20px;
 }
 
-.zoneTest{
+.zoneTest {
     position: relative;
-    width: auto;
-    height: calc(100vh - 60px);
+    width: 95vw;
+    height: 70vh;
+    margin: 10px auto;
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    overflow: hidden;
 }
 
-.moncercle{
-    border-radius:50%;
-    width: 10px;
-    height: 10px;
+.moncercle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
 }
 
-#highCercle{
-    background:#FF0018;
+#highCercle { background: #FF0018; }
+#lowCercle { background: #FFBDC3; }
+
+/* Classe pour cacher la barre de saisie */
+.hidden {
+    display: none !important;
 }
 
-#lowCercle{
-    background:#FFBDC3;
-}
-
-#questionnairePage{
-    scroll-behavior: auto;
-}
-form{
-    padding-bottom: 20px;
-}
-
-select, input {
-    font-size: 20px;
-	appearance: base-select;
-	border: 2px solid #8ec89a;
-	border-radius: 10px;
-	background-color: white;
-	color: #8ec89a;
-    margin : 10px;
+.inputNumber {
+    margin-top: 20px;
+    padding: 20px;
+    background: #ddd;
 }

@@ -2,7 +2,6 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test de Perception Visuelle</title>
     <script src="../model/ParticipantClass.js"></script>
     <script src="../model/EssaieClass.js"></script>
@@ -12,10 +11,16 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body id="head">
-    <div class="inputNumber">
+    <div id="pauseScreen" class="hidden">
+        <h2 id="sessionTitle">Session terminée</h2>
+        <p>Prenez une courte pause. Cliquez sur le bouton pour continuer.</p>
+        <button id="start_session_button">DÉMARRER LA SESSION SUIVANTE</button>
+    </div>
+
+    <div class="inputNumber hidden">
         <label for="reponse_sujet">Nombre de points observé : </label>
-        <input type="number" id="reponse_sujet" value="0"/>
-        <button id="next_essai_button">VALIDER & SUIVANT</button>
+        <input type="number" id="reponse_sujet" value=""/>
+        <button id="next_essai_button">VALIDER</button>
     </div>
     
     <div class="zoneTest"></div>
