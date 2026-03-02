@@ -7,9 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let essai = new EssaieClass();
     participant.age = data.age;  
     participant.genre = data.sexe;
-    participant.lateralite = data.lateralite;
-    participant.daltonisme = data.daltonien;
-    participant.peripherique = data.souris;
+    participant.Ordi = data.Ordi;
+    participant.Vue = data.Vue;
+    participant.filtre = data.filtre;
+    participant.dyscalculie = data.dyscalculie;
     
     let associationsNomCouleur = [
         { nom: 1, couleur: "jaune", x: 10, y:10},

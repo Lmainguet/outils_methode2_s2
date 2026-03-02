@@ -14,16 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // Récupération des champs
         const age = document.getElementById("age").value;
         const sexe = document.getElementById("sexe").value;
-        const lateralite = document.getElementById("lateralite").value;
-        const daltonien = document.getElementById("daltonien").value;
-        const souris = document.getElementById("souris").value;
+        const Ordi = document.getElementById("Ordi").value;
+        const Vue = document.getElementById("Vue").value;
+        const filtre = document.getElementById("filtre").value;
+        const dyscalculie = document.getElementById("dyscalculie").value;
 
         errorMessage.textContent = ""; // reset
 
         let valid = true;
 
         // Vérification des champs vides
-        if (!age || !sexe || !lateralite || !daltonien || !souris) {
+        if (!age || !sexe || !Ordi || !Vue || !filtre || !dyscalculie){
             errorMessage.textContent = "Veuillez répondre à toutes les questions.";
             valid = false;
             errorMessage.style.fontSize = "20px"
@@ -46,9 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const reponses = {
                 age: ageNumber,
                 sexe: sexe,
-                lateralite: lateralite,
-                daltonien: daltonien,
-                souris: souris
+                Ordi: Ordi,
+                Vue: Vue,
+                filtre: filtre,
+                dyscalculie: dyscalculie
             };
 
             // Sauvegarde dans localStorage
