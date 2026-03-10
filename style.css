@@ -31,8 +31,8 @@ main {
 
 .zoneTest {
     position: relative;
-    width: 95vw;
-    height: 70vh;
+    width: 450px;
+    height: 450px;
     margin: 10px auto;
     background-color: #f0f0f0;
     border: 1px solid #999;
@@ -41,8 +41,8 @@ main {
 
 .moncercle {
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
 }
 
 #highCercle { background: #FF0018; }

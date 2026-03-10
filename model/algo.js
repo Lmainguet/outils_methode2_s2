@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const pauseScreen = document.getElementById("pauseScreen");
     const startSessionBtn = document.getElementById("start_session_button");
     const sessionTitle = document.getElementById("sessionTitle");
+    let zonex = zoneTest.offsetWidth;
+    let zoney = zoneTest.offsetHeight;
+    console.log("zoneTest dimensions : ", zonex, zoney);
+    
     
     const data = JSON.parse(localStorage.getItem("questionnaireReponses"));
     if (!data) { window.location.href = "questionnaire.html"; return; }
@@ -21,17 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         questionnaire: data,
         experience: session
     };
-
-    let associationsNomCouleur = [
-        { nom: 1, x: 10, y:10}, { nom: 2, x: 15 , y:46}, { nom: 3, x: 86, y : 84},
-        { nom: 4, x: 97, y : 75}, { nom: 5, x: 34, y : 41}, { nom: 6, x: 68, y : 70},
-        { nom: 7, x: 46, y : 50}, { nom: 8, x: 25, y : 25}, { nom: 9, x: 5, y : 5},
-        { nom: 10, x: 25, y : 13}, { nom: 11, x: 3, y:10}, { nom: 12, x: 51 , y:65},
-        { nom: 13, x: 25, y : 86}, { nom: 14, x: 74, y : 16}, { nom: 15, x: 12, y : 90},
-        { nom: 16, x: 3, y : 52}, { nom: 17, x: 84, y : 50}, { nom: 18, x: 65, y : 25},
-        { nom: 19, x: 94, y : 4}, { nom: 20, x: 65, y : 18}
-    ];
     
+    const zone1 = { xmin: 5, xmax: (zonex/4)-6, ymin: 5, ymax: (zoney/5)-6 };
+    const zone2 = { xmin: (zonex/3)+6, xmax: (2*zonex/3)-6, ymin: 5, ymax: (zoney/2)-6 };
+    const zone3 = { xmin: (2*zonex/3)+6, xmax: zonex-9, ymin: 5, ymax: (zoney/2)-6};
+    const zone4 = { xmin: 5, xmax: (zonex/3)-6, ymin: (zoney/2)+6, ymax: zoney-6 };
+    const zone5 = { xmin: (zonex/3)+6, xmax: (2*zonex/3)-6, ymin: (zoney/2)+6, ymax: zoney-6 };
+    const zone6 = { xmin: (2*zonex/3)+6, xmax: zonex-6, ymin: (zoney/2)+6, ymax: zoney-6 };
+    const zones = [zone1, zone2, zone3, zone4, zone5, zone6];
 
     function initialiserExperience() {
         let fullList = [];
@@ -76,19 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
         essaie.index = currentEssaiIndex;
         essaie.couleur = typeCercle;
         essaie.nbPoints = nbPoints;
-        let positions = shuffle(associationsNomCouleur);
+        //let positions = shuffle(associationsNomCouleur);
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
-            const pointData = positions[i];
+            let randomZone = getRandomInt(6);
+            const positions = randomXY(zones[randomZone]);
+            console.log(i, "zone : ", randomZone, zones[randomZone], ", positions : ", positions)
             const el = document.createElement("div");
             el.className = "moncercle";
             el.id = typeCercle;
             el.style.position = "absolute";
-            el.style.left = (pointData.x / 100) * zoneTest.offsetWidth + "px";
-            el.style.top = (pointData.y / 100) * zoneTest.offsetHeight + "px";
+            el.style.left = positions.x  + "px";
+            el.style.top = positions.y + "px";
             zoneTest.appendChild(el);
-            essaie.addData({x: pointData.x, y: pointData.y});
+            essaie.addData({x: positions.x, y: positions.y});
         }
 
         // Flash de 2 secondes
@@ -114,6 +117,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    /*function getRandomyxZone(zone) {
+        console.log(Object.keys(zone))
+        x = Math.random() * (zone[xmax] - zone.xmin) + zone.xmin;
+        y = Math.random() * (zone.ymax - zone.ymin) + zone.ymin;
+        return x, y
+    }*/
+
+    // selectionne aleatoirement un x et y dans la zone donnée
+    function randomXY(zone) {
+        const x = Math.floor(Math.random() * (zone.xmax - zone.xmin)) + zone.xmin;
+        const y = Math.floor(Math.random() * (zone.ymax - zone.ymin)) + zone.ymin;
+        return {x, y};
+    }
+
     // Bouton Valider (passe à l'essai suivant dans la session)
     nextBtn.addEventListener("click", () => {
         essaie.reponse = inputReponse.value;
@@ -128,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pauseScreen.classList.add("hidden");
         ExperiencesData.experience.push(session.getDonnees());
         session = new SessionClass(); // Réinitialiser la session
-        console.log(ExperiencesData);
         lancerEssai();
     });
 
