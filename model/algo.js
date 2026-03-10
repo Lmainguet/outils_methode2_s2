@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sessionTitle = document.getElementById("sessionTitle");
     let zonex = zoneTest.offsetWidth;
     let zoney = zoneTest.offsetHeight;
-    console.log("zoneTest dimensions : ", zonex, zoney);
-    
     
     const data = JSON.parse(localStorage.getItem("questionnaireReponses"));
     if (!data) { window.location.href = "questionnaire.html"; return; }
@@ -77,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         essaie.index = currentEssaiIndex;
         essaie.couleur = typeCercle;
         essaie.nbPoints = nbPoints;
-        //let positions = shuffle(associationsNomCouleur);
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
@@ -120,13 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
-
-    /*function getRandomyxZone(zone) {
-        console.log(Object.keys(zone))
-        x = Math.random() * (zone[xmax] - zone.xmin) + zone.xmin;
-        y = Math.random() * (zone.ymax - zone.ymin) + zone.ymin;
-        return x, y
-    }*/
 
     // selectionne aleatoirement un x et y dans la zone donnée
     function randomXY(zone) {
