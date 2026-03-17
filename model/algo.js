@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < nbPoints; i++) {
             let randomZone = getRandomInt(6);
             const positions = randomXY(zones[randomZone]);
-            console.log(i, "zone : ", randomZone, zones[randomZone], ", positions : ", positions)
             const el = document.createElement("div");
             el.className = "moncercle";
             el.id = typeCercle;
@@ -137,7 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Pause (lance la session suivante)
     startSessionBtn.addEventListener("click", () => {
         pauseScreen.classList.add("hidden");
-        ExperiencesData.experience.push(session.getDonnees());
+        ExperiencesData.experience.addData(session.getDonnees());
+        console.log(ExperiencesData)
         session = new SessionClass(); // Réinitialiser la session
         lancerEssai();
     });
