@@ -24,13 +24,29 @@ document.addEventListener('DOMContentLoaded', () => {
         experience: session
     };
     
-    const zone1 = { xmin: 5, xmax: (zonex/4)-6, ymin: 5, ymax: (zoney/5)-6 };
-    const zone2 = { xmin: (zonex/3)+6, xmax: (2*zonex/3)-6, ymin: 5, ymax: (zoney/2)-6 };
-    const zone3 = { xmin: (2*zonex/3)+6, xmax: zonex-9, ymin: 5, ymax: (zoney/2)-6};
-    const zone4 = { xmin: 5, xmax: (zonex/3)-6, ymin: (zoney/2)+6, ymax: zoney-6 };
-    const zone5 = { xmin: (zonex/3)+6, xmax: (2*zonex/3)-6, ymin: (zoney/2)+6, ymax: zoney-6 };
-    const zone6 = { xmin: (2*zonex/3)+6, xmax: zonex-6, ymin: (zoney/2)+6, ymax: zoney-6 };
-    const zones = [zone1, zone2, zone3, zone4, zone5, zone6];
+    const zone1 = { xmin: 0, xmax: (zonex/5)-5, ymin: 0, ymax: (zoney/5)-5 };
+    const zone2 = { xmin: (zonex/5), xmax: (2*zonex/5)-5, ymin: 0, ymax: (zoney/5)-5 };
+    const zone3 = { xmin: (2*zonex/5), xmax: (3*zonex/5)-5, ymin: 0, ymax: (zoney/5)-5 };
+    const zone4 = { xmin: (3*zonex/5), xmax: (4*zonex/5)-5, ymin: 0, ymax: (zoney/5)-5 };
+    const zone5 = { xmin: (4*zonex/5), xmax: zonex-5, ymin: 0, ymax: (zoney/5)-5 };
+
+    const zone6 = { xmin: 0, xmax: (zonex/5)-5, ymin: (zoney/5), ymax: (2*zoney/5)-5 };
+    const zone7 = { xmin: (zonex/5), xmax: (2*zonex/5)-5, ymin: (zoney/5), ymax: (2*zoney/5)-5 };
+    const zone8 = { xmin: (2*zonex/5), xmax: (3*zonex/5)-5, ymin: (zoney/5), ymax: (2*zoney/5)-5 };
+    const zone9 = { xmin: (3*zonex/5), xmax: (4*zonex/5)-5, ymin: (zoney/5), ymax: (2*zoney/5)-5 };
+    const zone10 = { xmin: (4*zonex/5), xmax: zonex-5, ymin: (zoney/5), ymax: (2*zoney/5)-5 };
+    const zone11 = { xmin: 0, xmax: (zonex/5)-5, ymin: (2*zoney/5), ymax: (3*zoney/5)-5 };
+    const zone12 = { xmin: (zonex/5), xmax: (2*zonex/5)-5, ymin: (2*zoney/5), ymax: (3*zoney/5)-5 };
+    const zone13 = { xmin: (2*zonex/5), xmax: (3*zonex/5)-5, ymin: (2*zoney/5), ymax: (3*zoney/5)-5 };
+    const zone14 = { xmin: (3*zonex/5), xmax: (4*zonex/5)-5, ymin: (2*zoney/5), ymax: (3*zoney/5)-5 };
+    const zone15 = { xmin: (4*zonex/5), xmax: zonex-5, ymin: (2*zoney/5), ymax: (3*zoney/5)-5 };
+    const zone16 = { xmin: 0, xmax: (zonex/5)-5, ymin: (3*zoney/5), ymax: (4*zoney/5)-5 };
+    const zone17 = { xmin: (zonex/5), xmax: (2*zonex/5)-5, ymin: (3*zoney/5), ymax: (4*zoney/5)-5 };
+    const zone18 = { xmin: (2*zonex/5), xmax: (3*zonex/5)-5, ymin: (3*zoney/5), ymax: (4*zoney/5)-5 };
+    const zone19 = { xmin: (3*zonex/5), xmax: (4*zonex/5)-5, ymin: (3*zoney/5), ymax: (4*zoney/5)-5 };
+    const zone20 = { xmin: (4*zonex/5), xmax: zonex-5, ymin: (3*zoney/5), ymax: (4*zoney/5)-5 };
+
+    const zones = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9, zone10, zone11, zone12, zone13, zone14, zone15, zone16, zone17, zone18, zone19, zone20];
 
     function initialiserExperience() {
         let fullList = [];
@@ -54,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         barreSaisie.classList.add("hidden");
         zoneTest.innerHTML = "";
         inputReponse.value = 0;
+        const zone = [zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9, zone10, zone11, zone12, zone13, zone14, zone15, zone16, zone17, zone18, zone19, zone20];
         
         // Vérifier si la session actuelle est finie
         if (currentEssaiIndex >= sessions[currentSessionIndex].length) {
@@ -78,8 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
-            let randomZone = getRandomInt(6);
-            const positions = randomXY(zones[randomZone]);
+            let randomZone = Math.floor(Math.random() * zone.length)
+            const positions = randomXY(zone[randomZone]);
+            console.log(randomZone, zone)
+            zone.splice(randomZone, 1);
+            console.log(zone)
             const el = document.createElement("div");
             el.className = "moncercle";
             el.id = typeCercle;
@@ -119,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // selectionne aleatoirement un x et y dans la zone donnée
     function randomXY(zone) {
+        console.log(zone)
         const x = Math.floor(Math.random() * (zone.xmax - zone.xmin)) + zone.xmin;
         const y = Math.floor(Math.random() * (zone.ymax - zone.ymin)) + zone.ymin;
         return {x, y};
@@ -127,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bouton Valider (passe à l'essai suivant dans la session)
     nextBtn.addEventListener("click", () => {
         essaie.reponse = inputReponse.value;
-        
         session.addData(essaie.getDonnees());
         currentEssaiIndex++;
         lancerEssai();
