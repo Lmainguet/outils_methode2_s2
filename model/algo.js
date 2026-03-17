@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nbPoints = currentEssai[1];
         essaie.index = currentEssaiIndex;
         essaie.couleur = typeCercle;
-        essaie.nbPoints = nbPoints;
+        essaie.nbReel = nbPoints;
 
         // Affichage des points
         for (let i = 0; i < nbPoints; i++) {
